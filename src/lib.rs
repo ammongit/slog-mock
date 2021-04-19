@@ -67,7 +67,7 @@ pub fn slog__unused(input: TokenStream) -> TokenStream {
         )*
 
         #(
-            let  = #context_values;
+            let _ = #context_values;
         )*
 
         ()
