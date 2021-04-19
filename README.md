@@ -1,5 +1,12 @@
 ## slog-mock
 
+<p>
+  <a href="https://github.com/ammongit/slog-mock/actions?query=workflow%3A%22Rust%22">
+    <img src="https://github.com/ammongit/slog-mock/workflows/Rust/badge.svg"
+         alt="Build status">
+  </a>
+</p>
+
 Crate to mock [`slog`](https://crates.io/crates/slog), returning macros which mimic slog's.
 
 This is not a full drop-in replacement for `slog`, but a limited subset of its functionality.
