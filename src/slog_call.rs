@@ -64,16 +64,10 @@ impl Parse for SlogCall {
         get_optional![,];
         check_done!();
 
-        loop {
+        while !input.peek(Token![;]) {
             let format_arg: Expr = input.parse()?;
 
             format_args.push(format_arg);
-            check_done!();
-
-            if input.peek(Token![;]) {
-                break;
-            }
-
             get_optional![,];
             check_done!();
         }
