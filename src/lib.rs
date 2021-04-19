@@ -30,8 +30,8 @@
 //! [`slog`]: https://crates.io/crates/slog
 
 extern crate proc_macro;
-extern crate syn;
 extern crate quote;
+extern crate syn;
 
 #[cfg(test)]
 mod test;
