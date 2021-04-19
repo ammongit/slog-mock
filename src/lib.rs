@@ -38,15 +38,63 @@ mod test;
 
 use proc_macro::TokenStream;
 use syn::parse::{Parse, ParseStream, Result};
-use syn::{parse_macro_input, Expr};
+use syn::{parse_macro_input, Expr, Token};
 
 struct SlogCall {
     logger: Expr,
+    message: Expr,
+    format_args: Vec<Expr>,
+    context_args: Vec<(Expr, Expr)>,
 }
 
 impl Parse for SlogCall {
     fn parse(input: ParseStream) -> Result<Self> {
-        todo!()
+        let mut format_args = Vec::new();
+        let mut context_args = Vec::new();
+
+        let logger: Expr = input.parse()?;
+        input.parse::<Token![,]>()?;
+
+        let message: Expr = input.parse()?;
+
+        macro_rules! check_done {
+            () => {
+                if input.is_empty() {
+                    return Ok(SlogCall {
+                        logger,
+                        message,
+                        format_args,
+                        context_args,
+                    });
+                }
+            };
+        }
+
+        // Get message formatting
+        check_done!();
+
+        while input.peek(Token![,]) {
+            input.parse::<Token![,]>()?;
+            let format_arg: Expr = input.parse()?;
+
+            format_args.push(format_arg);
+        }
+
+        // Get key-value context arguments
+        check_done!();
+        input.parse::<Token![;]>()?;
+
+        loop {
+            let key: Expr = input.parse()?;
+            input.parse::<Token![=>]>()?;
+            let value: Expr = input.parse()?;
+
+            context_args.push((key, value));
+
+            check_done!();
+            input.parse::<Token![,]>()?;
+            check_done!();
+        }
     }
 }
 
