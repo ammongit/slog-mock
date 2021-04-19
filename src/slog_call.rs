@@ -65,6 +65,7 @@ impl Parse for SlogCall {
         // Get key-value context arguments
         check_done!();
         input.parse::<Token![;]>()?;
+        check_done!();
 
         loop {
             let key: Expr = input.parse()?;
