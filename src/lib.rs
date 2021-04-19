@@ -29,9 +29,31 @@
 //!
 //! [`slog`]: https://crates.io/crates/slog
 
-#[macro_use]
 extern crate proc_macro;
-extern crate quote;
 extern crate syn;
+extern crate quote;
 
-// TODO
+#[cfg(test)]
+mod test;
+
+use proc_macro::TokenStream;
+use syn::parse::{Parse, ParseStream, Result};
+use syn::{parse_macro_input, Expr};
+
+struct SlogCall {
+    logger: Expr,
+}
+
+impl Parse for SlogCall {
+    fn parse(input: ParseStream) -> Result<Self> {
+        todo!()
+    }
+}
+
+#[proc_macro]
+#[doc(hidden)]
+#[allow(non_snake_case)]
+pub fn slog__unused(input: TokenStream) -> TokenStream {
+    let SlogCall { .. } = parse_macro_input!(input as SlogCall);
+    todo!();
+}
