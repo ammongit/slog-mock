@@ -29,4 +29,9 @@
 //!
 //! [`slog`]: https://crates.io/crates/slog
 
+#[macro_use]
+extern crate proc_macro;
+extern crate quote;
+extern crate syn;
+
 // TODO
