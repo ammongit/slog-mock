@@ -52,9 +52,16 @@ impl Parse for SlogCall {
             };
         }
 
+        macro_rules! get_optional {
+            ($token:tt) => {
+                if input.peek(Token![$token]) {
+                    input.parse::<Token![$token]>()?;
+                }
+            };
+        }
+
         // Get message formatting
-        check_done!();
-        input.parse::<Token![,]>()?;
+        get_optional![,];
         check_done!();
 
         loop {
@@ -66,6 +73,9 @@ impl Parse for SlogCall {
             if input.peek(Token![;]) {
                 break;
             }
+
+            get_optional![,];
+            check_done!();
         }
 
         // Get key-value context arguments
@@ -80,8 +90,7 @@ impl Parse for SlogCall {
             context_keys.push(key);
             context_values.push(value);
 
-            check_done!();
-            input.parse::<Token![,]>()?;
+            get_optional![,];
             check_done!();
         }
     }
