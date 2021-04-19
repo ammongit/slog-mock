@@ -39,8 +39,8 @@ extern crate syn;
 
 mod slog_call;
 
-use proc_macro::TokenStream;
 use self::slog_call::SlogCall;
+use proc_macro::TokenStream;
 
 #[proc_macro]
 #[doc(hidden)]

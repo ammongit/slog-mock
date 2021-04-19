@@ -11,14 +11,13 @@
  *
  */
 
+use std::fmt::{self, Debug};
 /// Core of the crate, the `slog__unused!` macro.
 ///
 /// Handles macro parsing and expansion of a slog-like
 /// macro which consumes all its inputs as unused.
-
 use syn::parse::{Parse, ParseStream, Result};
 use syn::{Expr, Token};
-use std::fmt::{self, Debug};
 
 pub struct SlogCall {
     pub logger: Expr,
