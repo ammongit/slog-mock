@@ -69,8 +69,7 @@ impl Parse for SlogCall {
 
         loop {
             let key: Expr = input.parse()?;
-            input.parse::<Token![=]>()?;
-            input.parse::<Token![>]>()?;
+            input.parse::<Token![=>]>()?;
             let value: Expr = input.parse()?;
 
             context_keys.push(key);
