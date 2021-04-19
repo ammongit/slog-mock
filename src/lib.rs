@@ -40,71 +40,10 @@ extern crate syn;
 #[cfg(test)]
 mod test;
 
+mod slog_call;
+
 use proc_macro::TokenStream;
-use syn::parse::{Parse, ParseStream, Result};
-use syn::{Expr, Token};
-
-struct SlogCall {
-    logger: Expr,
-    message: Expr,
-    format_args: Vec<Expr>,
-    context_keys: Vec<Expr>,
-    context_values: Vec<Expr>,
-}
-
-impl Parse for SlogCall {
-    fn parse(input: ParseStream) -> Result<Self> {
-        let mut format_args = Vec::new();
-        let mut context_keys = Vec::new();
-        let mut context_values = Vec::new();
-
-        let logger: Expr = input.parse()?;
-        input.parse::<Token![,]>()?;
-
-        let message: Expr = input.parse()?;
-
-        macro_rules! check_done {
-            () => {
-                if input.is_empty() {
-                    return Ok(SlogCall {
-                        logger,
-                        message,
-                        format_args,
-                        context_keys,
-                        context_values,
-                    });
-                }
-            };
-        }
-
-        // Get message formatting
-        check_done!();
-
-        while input.peek(Token![,]) {
-            input.parse::<Token![,]>()?;
-            let format_arg: Expr = input.parse()?;
-
-            format_args.push(format_arg);
-        }
-
-        // Get key-value context arguments
-        check_done!();
-        input.parse::<Token![;]>()?;
-
-        loop {
-            let key: Expr = input.parse()?;
-            input.parse::<Token![=>]>()?;
-            let value: Expr = input.parse()?;
-
-            context_keys.push(key);
-            context_values.push(value);
-
-            check_done!();
-            input.parse::<Token![,]>()?;
-            check_done!();
-        }
-    }
-}
+use self::slog_call::SlogCall;
 
 #[proc_macro]
 #[doc(hidden)]
@@ -138,4 +77,40 @@ pub fn slog__unused(input: TokenStream) -> TokenStream {
     }};
 
     TokenStream::from(expanded)
+}
+
+/// Dummy logging macro, mimics `slog::crit!`.
+#[proc_macro]
+pub fn crit(input: TokenStream) -> TokenStream {
+    slog__unused(input)
+}
+
+/// Dummy logging macro, mimics `slog::error!`.
+#[proc_macro]
+pub fn error(input: TokenStream) -> TokenStream {
+    slog__unused(input)
+}
+
+/// Dummy logging macro, mimics `slog::warn!`.
+#[proc_macro]
+pub fn warn(input: TokenStream) -> TokenStream {
+    slog__unused(input)
+}
+
+/// Dummy logging macro, mimics `slog::info!`.
+#[proc_macro]
+pub fn info(input: TokenStream) -> TokenStream {
+    slog__unused(input)
+}
+
+/// Dummy logging macro, mimics `slog::debug!`.
+#[proc_macro]
+pub fn debug(input: TokenStream) -> TokenStream {
+    slog__unused(input)
+}
+
+/// Dummy logging macro, mimics `slog::trace!`.
+#[proc_macro]
+pub fn trace(input: TokenStream) -> TokenStream {
+    slog__unused(input)
 }
