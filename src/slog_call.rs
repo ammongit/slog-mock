@@ -60,10 +60,10 @@ impl Parse for SlogCall {
             let format_arg: Expr = input.parse()?;
 
             format_args.push(format_arg);
+            check_done!();
         }
 
         // Get key-value context arguments
-        check_done!();
         input.parse::<Token![;]>()?;
         check_done!();
 
