@@ -1,5 +1,11 @@
 [package]
 name = "slog-mock"
+description = "Mock crate for slog to compile out all logging"
+repository = "https://github.com/ammongit/slog-mock"
+readme = "README.md"
+license = "MIT"
+keywords = ["slog", "mock", "proc-macro"]
+categories = []
 version = "0.1.0"
 authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
 edition = "2018" # Cargo edition
