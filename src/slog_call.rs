@@ -54,13 +54,18 @@ impl Parse for SlogCall {
 
         // Get message formatting
         check_done!();
+        input.parse::<Token![,]>()?;
+        check_done!();
 
-        while input.peek(Token![,]) {
-            input.parse::<Token![,]>()?;
+        loop {
             let format_arg: Expr = input.parse()?;
 
             format_args.push(format_arg);
             check_done!();
+
+            if input.peek(Token![;]) {
+                break;
+            }
         }
 
         // Get key-value context arguments
