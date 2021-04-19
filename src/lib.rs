@@ -30,7 +30,11 @@
 //! [`slog`]: https://crates.io/crates/slog
 
 extern crate proc_macro;
+
+#[macro_use]
 extern crate quote;
+
+#[macro_use]
 extern crate syn;
 
 #[cfg(test)]
@@ -38,19 +42,21 @@ mod test;
 
 use proc_macro::TokenStream;
 use syn::parse::{Parse, ParseStream, Result};
-use syn::{parse_macro_input, Expr, Token};
+use syn::{Expr, Token};
 
 struct SlogCall {
     logger: Expr,
     message: Expr,
     format_args: Vec<Expr>,
-    context_args: Vec<(Expr, Expr)>,
+    context_keys: Vec<Expr>,
+    context_values: Vec<Expr>,
 }
 
 impl Parse for SlogCall {
     fn parse(input: ParseStream) -> Result<Self> {
         let mut format_args = Vec::new();
-        let mut context_args = Vec::new();
+        let mut context_keys = Vec::new();
+        let mut context_values = Vec::new();
 
         let logger: Expr = input.parse()?;
         input.parse::<Token![,]>()?;
@@ -64,7 +70,8 @@ impl Parse for SlogCall {
                         logger,
                         message,
                         format_args,
-                        context_args,
+                        context_keys,
+                        context_values,
                     });
                 }
             };
@@ -89,7 +96,8 @@ impl Parse for SlogCall {
             input.parse::<Token![=>]>()?;
             let value: Expr = input.parse()?;
 
-            context_args.push((key, value));
+            context_keys.push(key);
+            context_values.push(value);
 
             check_done!();
             input.parse::<Token![,]>()?;
@@ -102,6 +110,32 @@ impl Parse for SlogCall {
 #[doc(hidden)]
 #[allow(non_snake_case)]
 pub fn slog__unused(input: TokenStream) -> TokenStream {
-    let SlogCall { .. } = parse_macro_input!(input as SlogCall);
-    todo!();
+    let SlogCall {
+        logger,
+        message,
+        format_args,
+        context_keys,
+        context_values,
+    } = parse_macro_input!(input as SlogCall);
+
+    let expanded = quote! {{
+        let _ = #logger;
+        let _ = #message;
+
+        #(
+            let _ = #format_args;
+        )*
+
+        #(
+            let _ = #context_keys;
+        )*
+
+        #(
+            let  = #context_values;
+        )*
+
+        ()
+    }};
+
+    TokenStream::from(expanded)
 }
