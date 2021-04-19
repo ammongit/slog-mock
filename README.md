@@ -13,4 +13,14 @@ This is not a full drop-in replacement for `slog`, but a limited subset of its f
 The goal is to enable crates to provide a feature that compiles out all logging code entirely,
 in cases where logging is not needed for a specific target due to sensitive performance concerns.
 
+The lint `#![forbid(unsafe_code)]` is set, and therefore this crate has only safe code.
+
 Available under the terms of the MIT License.
+
+### Compilation
+
+This library targets the latest stable Rust. At time of writing, that is `1.51.0`.
+
+```sh
+$ cargo build --release
+```
