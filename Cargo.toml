@@ -1,0 +1,12 @@
+[package]
+name = "slog-mock"
+version = "0.0.1"
+authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
+edition = "2018" # Cargo edition
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1"
+syn = "1"
