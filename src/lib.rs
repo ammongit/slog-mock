@@ -37,9 +37,6 @@ extern crate quote;
 #[macro_use]
 extern crate syn;
 
-#[cfg(test)]
-mod test;
-
 mod slog_call;
 
 use proc_macro::TokenStream;
