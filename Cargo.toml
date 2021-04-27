@@ -16,4 +16,4 @@ edition = "2018" # Cargo edition
 members = ["slog-mock-proc-macros"]
 
 [dependencies]
-slog-mock-proc-macros = { path = "slog-mock-proc-macros" }
+slog-mock-proc-macros = "0.3"
