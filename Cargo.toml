@@ -4,7 +4,7 @@ description = "Mock crate for slog to compile out all logging"
 repository = "https://github.com/ammongit/slog-mock"
 readme = "README.md"
 license = "MIT"
-keywords = ["slog", "mock", "proc-macro"]
+keywords = ["slog", "mock"]
 categories = []
 exclude = [".gitignore", ".github"]
 
@@ -12,9 +12,8 @@ version = "0.2.0"
 authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
 edition = "2018" # Cargo edition
 
-[lib]
-proc-macro = true
+[workspace]
+members = ["slog-mock-proc-macros"]
 
 [dependencies]
-quote = "1"
-syn = "1"
+slog-mock-proc-macros = { path = "slog-mock-proc-macros" }

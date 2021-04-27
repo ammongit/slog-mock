@@ -11,13 +11,10 @@
  *
  */
 
-#![deny(missing_debug_implementations, missing_docs)]
-#![forbid(unsafe_code)]
-
-//! Crate to mock [`slog`] macros.
+//! Crate to mock [`slog`] objects and macros.
 //!
-//! This exports many expected macros from the `slog` crate,
-//! but has them compile into no-ops.
+//! This exports many expected pieces of functionality
+//! from the `slog` crate, but has them compile into no-ops.
 //!
 //! The goal is to allow a crate consumer to have a feature where
 //! this crate is used instead of `slog`, and all logging calls
@@ -29,85 +26,13 @@
 //!
 //! [`slog`]: https://crates.io/crates/slog
 
-extern crate proc_macro;
+#![deny(missing_debug_implementations, missing_docs)]
+#![forbid(unsafe_code)]
 
-#[macro_use]
-extern crate quote;
+extern crate slog_mock_proc_macros;
 
-#[macro_use]
-extern crate syn;
+mod log;
+mod macros;
 
-mod slog_call;
-
-use self::slog_call::SlogCall;
-use proc_macro::TokenStream;
-
-#[proc_macro]
-#[doc(hidden)]
-#[allow(non_snake_case)]
-pub fn slog__unused(input: TokenStream) -> TokenStream {
-    let SlogCall {
-        logger,
-        message,
-        format_args,
-        context_keys,
-        context_values,
-    } = parse_macro_input!(input as SlogCall);
-
-    let expanded = quote! {{
-        let _ = #logger;
-        let _ = #message;
-
-        #(
-            let _ = #format_args;
-        )*
-
-        #(
-            let _ = #context_keys;
-        )*
-
-        #(
-            let _ = #context_values;
-        )*
-
-        ()
-    }};
-
-    TokenStream::from(expanded)
-}
-
-/// Dummy logging macro, mimics `slog::crit!`.
-#[proc_macro]
-pub fn crit(input: TokenStream) -> TokenStream {
-    slog__unused(input)
-}
-
-/// Dummy logging macro, mimics `slog::error!`.
-#[proc_macro]
-pub fn error(input: TokenStream) -> TokenStream {
-    slog__unused(input)
-}
-
-/// Dummy logging macro, mimics `slog::warn!`.
-#[proc_macro]
-pub fn warn(input: TokenStream) -> TokenStream {
-    slog__unused(input)
-}
-
-/// Dummy logging macro, mimics `slog::info!`.
-#[proc_macro]
-pub fn info(input: TokenStream) -> TokenStream {
-    slog__unused(input)
-}
-
-/// Dummy logging macro, mimics `slog::debug!`.
-#[proc_macro]
-pub fn debug(input: TokenStream) -> TokenStream {
-    slog__unused(input)
-}
-
-/// Dummy logging macro, mimics `slog::trace!`.
-#[proc_macro]
-pub fn trace(input: TokenStream) -> TokenStream {
-    slog__unused(input)
-}
+pub use self::log::Logger;
+pub use slog_mock_proc_macros::*;

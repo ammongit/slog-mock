@@ -1,0 +1,20 @@
+[package]
+name = "slog-mock-proc-macros"
+description = "Implementation crate for slog-mock"
+repository = "https://github.com/ammongit/slog-mock"
+readme = "../README.md"
+license = "MIT"
+keywords = ["slog", "mock", "proc-macro"]
+categories = []
+exclude = []
+
+version = "0.2.0"
+authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
+edition = "2018" # Cargo edition
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1"
+syn = "1"

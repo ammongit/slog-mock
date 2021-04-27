@@ -1,7 +1,7 @@
 /*
  * slog_call.rs
  *
- * slog-mock - Mock crate for slog to compile out all logging.
+ * slog-mock-proc-macros - Mock crate for slog to compile out all logging.
  * Copyright (c) 2021 Ammon Smith
  *
  * slog-mock is available free of charge under the terms of the MIT
