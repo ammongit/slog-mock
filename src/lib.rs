@@ -31,8 +31,33 @@
 
 extern crate slog_mock_proc_macros;
 
-mod log;
-mod macros;
-
-pub use self::log::Logger;
 pub use slog_mock_proc_macros::*;
+
+/// Dummy logging macro, mimics `slog::slog_o!`.
+#[macro_export]
+macro_rules! slog_o {
+    ($($key:expr => $value:expr,)+) => {
+        slog_o!($($key => $value),+)
+    };
+    ($($key:expr => $value:expr),*) => {{
+        $(
+            let _ = $key;
+            let _ = $value;
+        )*
+
+        ()
+    }};
+}
+
+/// Dummy logging macro, mimics `slog::o!`.
+///
+/// See `slog_o!`.
+#[macro_export]
+macro_rules! o {
+    ($($key:expr => $value:expr,)+) => {
+        slog_o!($($key => $value),+)
+    };
+    ($($key:expr => $value:expr),*) => {
+        slog_o!($(key => $value),*)
+    };
+}
