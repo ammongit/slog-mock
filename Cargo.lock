@@ -20,14 +20,14 @@ dependencies = [
 
 [[package]]
 name = "slog-mock"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "slog-mock-proc-macros",
 ]
 
 [[package]]
 name = "slog-mock-proc-macros"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "quote",
  "syn",
