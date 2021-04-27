@@ -8,7 +8,7 @@ keywords = ["slog", "mock"]
 categories = []
 exclude = [".gitignore", ".github"]
 
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
 edition = "2018" # Cargo edition
 
@@ -16,4 +16,4 @@ edition = "2018" # Cargo edition
 members = ["slog-mock-proc-macros"]
 
 [dependencies]
-slog-mock-proc-macros = "0.3"
+slog-mock-proc-macros = "0.4"

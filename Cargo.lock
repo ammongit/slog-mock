@@ -20,17 +20,9 @@ dependencies = [
 
 [[package]]
 name = "slog-mock"
-version = "0.3.0"
+version = "0.4.0"
 dependencies = [
- "slog-mock-proc-macros 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "slog-mock-proc-macros"
-version = "0.3.0"
-dependencies = [
- "quote",
- "syn",
+ "slog-mock-proc-macros 0.3.0",
 ]
 
 [[package]]
@@ -38,6 +30,14 @@ name = "slog-mock-proc-macros"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3af33ac161cb1fd773aa350a607b0a8a4aa7db483bb9d16af4fb005ae939b324"
+dependencies = [
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "slog-mock-proc-macros"
+version = "0.4.0"
 dependencies = [
  "quote",
  "syn",
