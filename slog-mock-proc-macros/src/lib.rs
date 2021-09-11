@@ -30,34 +30,9 @@ use self::slog_call::SlogCall;
 use proc_macro::TokenStream;
 
 fn slog_unused(input: TokenStream) -> TokenStream {
-    let SlogCall {
-        logger,
-        message,
-        format_args,
-        context_keys,
-        context_values,
-    } = parse_macro_input!(input as SlogCall);
+    let SlogCall { .. } = parse_macro_input!(input as SlogCall);
 
-    let expanded = quote! {{
-        let _ = #logger;
-        let _ = #message;
-
-        #(
-            let _ = #format_args;
-        )*
-
-        #(
-            let _ = #context_keys;
-        )*
-
-        #(
-            let _ = #context_values;
-        )*
-
-        ()
-    }};
-
-    TokenStream::from(expanded)
+    TokenStream::from(quote! {})
 }
 
 /// Dummy logging macro, mimics `slog::crit!`.
