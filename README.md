@@ -1,5 +1,11 @@
 ## slog-mock
 
+This crate has been abandoned. The technique of using `let _` did not compile out code
+as expected. While it does suppress "unused" warnings, the objects are still uninitialized,
+which doesn't address the performance concerns this crate was made to address.
+
+### Previous Description
+
 <p>
   <a href="https://github.com/ammongit/slog-mock/actions?query=workflow%3A%22Rust%22">
     <img src="https://github.com/ammongit/slog-mock/workflows/Rust/badge.svg"
