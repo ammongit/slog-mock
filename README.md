@@ -19,7 +19,7 @@ Available under the terms of the MIT License.
 
 ### Compilation
 
-This library targets the latest stable Rust. At time of writing, that is `1.51.0`.
+This library targets the latest stable Rust. At time of writing, that is `1.55.0`.
 
 ```sh
 $ cargo build --release
