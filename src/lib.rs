@@ -36,10 +36,8 @@ pub use slog_mock_proc_macros::*;
 /// Dummy logging macro, mimics `slog::slog_o!`.
 #[macro_export]
 macro_rules! slog_o {
-    ($($key:expr => $value:expr,)+) => {
-    };
-    ($($key:expr => $value:expr),*) => {
-    };
+    ($($key:expr => $value:expr,)+) => {};
+    ($($key:expr => $value:expr),*) => {};
 }
 
 /// Dummy logging macro, mimics `slog::o!`.
